@@ -115,7 +115,9 @@ const router =  new Router({
 
 //路由守卫，在路由跳转时执行
 router.beforeEach((to, from, next) => {
-  NProgress.start();
+  if (to.path != from.path) {
+    NProgress.start();
+  }
   next();
 });
 
