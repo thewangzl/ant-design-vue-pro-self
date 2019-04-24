@@ -12,6 +12,7 @@ const router =  new Router({
   routes: [
     {
       path: "/user",
+      hideInMenu: true,
       component: () =>
         import(/* webpackChunkName: "layout" */ "./layouts/UserLayout"),
       children: [
@@ -46,19 +47,31 @@ const router =  new Router({
         {
           path: "/dashboard",
           name: "dashboard",
+          meta: {
+            icon: "dashboard",
+            title: "仪表盘"
+          },
           component: { render: h => h("router-view") },
           children: [
             {
               path: "/dashboard/analysis",
               name: "analysis",
+              meta: {
+                title: "分析页"
+              },
               component: () =>
                 import(/* webpackChunkName */ "./views/Dashboard/Analysis")
             }
           ]
         },
+        // form
         {
           path: "/form",
           name: "form",
+          meta: {
+            icon: "form",
+            title: "表单"
+          },
           component: { render: h => h("router-view") },
           children: [
             {
@@ -68,12 +81,19 @@ const router =  new Router({
             {
               path: "/form/basic-form",
               name: "basicForm",
+              meta: {
+                title: "基础表单"
+              },
               component: () =>
                 import(/* webpackChunkName */ "./views/Forms/BasicForm")
             },
             {
               path: "/form/step-form",
               name: "stepForm",
+              meta: {
+                title: "分步表单"
+              },
+              hideChildrenInMenu: true,
               component: () =>
                 import(/* webpackChunkName */ "./views/Forms/StepForm"),
               children: [
@@ -108,6 +128,7 @@ const router =  new Router({
     {
       path: "*",
       name: "404",
+      hideInMenu: true,
       component: NotFound
     }
   ]
