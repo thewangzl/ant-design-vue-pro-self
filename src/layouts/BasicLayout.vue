@@ -3,31 +3,37 @@
     <a-layout id="components-layout-demo-side" style="min-height: 100vh">
       <a-layout-sider
         v-if="navLayout === 'left'"
-       :theme="navTheme" :trigger="null" collapsible v-model="collapsed"
-       width="256px"
-       >
+        :theme="navTheme"
+        :trigger="null"
+        collapsible
+        v-model="collapsed"
+        width="256px"
+      >
         <div class="logo">Ant Design vue Pro</div>
-        <SiderMenu :theme="navTheme"/>
+        <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <a-layout>
         <a-layout-header style="background: #fff; padding: 0">
           <a-icon
+            v-auth="['admin']"
             v-if="navLayout === 'left'"
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="collapsed = !collapsed"
           ></a-icon>
-          <Header/>
+          <Header />
         </a-layout-header>
         <a-layout-content style="margin: 0 16px">
           <router-view></router-view>
         </a-layout-content>
         <a-layout-footer style="text-align: center">
-          <Footer/>
+          <Footer />
         </a-layout-footer>
       </a-layout>
     </a-layout>
-    <SettingDrawer/>
+    <Authorized :authority="['admin']">
+      <SettingDrawer />
+    </Authorized>
   </div>
 </template>
 
@@ -42,12 +48,12 @@ export default {
       collapsed: false
     };
   },
-  computed : {
+  computed: {
     navTheme() {
-      return this.$route.query.navTheme || 'dark';
+      return this.$route.query.navTheme || "dark";
     },
     navLayout() {
-      return this.$route.query.navLayout || 'left';
+      return this.$route.query.navLayout || "left";
     }
   },
   components: {
